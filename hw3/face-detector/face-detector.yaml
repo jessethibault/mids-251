@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-detector
+spec:
+  selector:
+    matchLabels:
+      app: face-detector
+  replicas: 1 # tells deployment to run 1 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: face-detector
+    spec:
+      containers:
+      - name: face-detector
+        image: jethibau/hw3-face-detector
