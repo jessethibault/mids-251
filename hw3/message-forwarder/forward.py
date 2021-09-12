@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import sys
 
 LOCAL_MQTT_HOST="mosquitto-service"
 LOCAL_MQTT_PORT=1883
