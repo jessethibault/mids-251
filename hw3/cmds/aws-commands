@@ -1,4 +1,15 @@
 # Run on local machine
+## Run each docker image in Kubernetes
+cd ~/w251-mids/hw3/edge-broker
+kubectl apply -f edge-broker.yaml
+kubectl apply -f mosquitto-service.yaml
+cd ~/w251-mids/hw3/face-detector
+kubectl apply -f face-detector.yaml
+cd ~/w251-mids/hw3/message-forwarder
+kubectl apply -f message-forwarder.yaml
+cd ~/w251-mids/hw3/message-logger
+kubectl apply -f edge-message-logger.yaml
+
 ## Security groups and keypair were setup from Lab 02
 aws ec2 describe-security-groups | grep -A20 PrivateSG | grep GroupId
 sg-04e2d5bf908108505
