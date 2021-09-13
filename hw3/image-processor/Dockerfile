@@ -1,8 +1,8 @@
 FROM alpine:3.13
 # this is needed to make sure we can see the log output
 ENV PYTHONUNBUFFERED=1
-ENV AWS_SHARED_CREDENTIALS_FILE=./.aws/credentials
-ENV AWS_CONFIG_FILE=./.aws/config
+ENV AWS_SHARED_CREDENTIALS_FILE=/.aws/credentials
+ENV AWS_CONFIG_FILE=/.aws/config
 WORKDIR /app
 RUN apk update 
 RUN apk add bash
