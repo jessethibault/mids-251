@@ -5,10 +5,11 @@ metadata:
   labels:
     run: mosquitto
 spec:
-  type: NodePort
   ports:
-  - port: 1883
-    protocol: TCP
+  - name: image-processor
+    port: 1883
+    nodePort: 31801
     targetPort: 1883
+    protocol: TCP
   selector:
     app: mosquitto

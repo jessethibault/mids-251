@@ -5,8 +5,8 @@ LOCAL_MQTT_HOST="mosquitto-service"
 LOCAL_MQTT_PORT=1883
 LOCAL_MQTT_TOPIC="image_capture"
 
-REMOTE_MQTT_HOST="mosquitto-service"
-REMOTE_MQTT_PORT=1883
+REMOTE_MQTT_HOST="18.118.218.53"
+REMOTE_MQTT_PORT=31801
 REMOTE_MQTT_TOPIC="image_store"
 
 def on_connect_local(client, userdata, flags, rc):
@@ -19,7 +19,7 @@ def on_connect_remote(client, userdata, flags, rc):
 def on_message(client,userdata, msg):
   try:
     msg = msg.payload
-    local_mqttclient.publish(REMOTE_MQTT_TOPIC, payload=msg, qos=0, retain=False)
+    remote_mqttclient.publish(REMOTE_MQTT_TOPIC, payload=msg, qos=0, retain=False)
   except:
     print(f"Unexpected error:{sys.exc_info()[0]}")
 
