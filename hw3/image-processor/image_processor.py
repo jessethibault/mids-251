@@ -28,7 +28,7 @@ def write_to_s3(payload):
 def on_message(client,userdata, msg):
   try:
     print('on_message start')
-    write_to_s3(msg.payload)
+    write_to_file(msg.payload)
     print('on_message end')
   except:
     print(f"Unexpected error: {sys.exc_info()[0]} -- {sys.exc_info()[1]} -- {sys.exc_info()[2]}")
