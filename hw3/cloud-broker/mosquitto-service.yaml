@@ -7,9 +7,9 @@ metadata:
 spec:
   ports:
   - name: image-processor
-    port: 1883
     nodePort: 31801
-    targetPort: 1883
+    port: 1883
     protocol: TCP
+    targetPort: 1883
   selector:
     app: mosquitto
