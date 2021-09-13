@@ -1,5 +1,5 @@
 # Run on local machine
-## Security groups were setup from Lab 02
+## Security groups and keypair were setup from Lab 02
 aws ec2 describe-security-groups | grep -A20 PrivateSG | grep GroupId
 sg-04e2d5bf908108505
 
@@ -14,8 +14,14 @@ aws ec2 run-instances --image-id ami-0010d386b82bc06f0 --instance-type t2.medium
 aws ec2 describe-instances | grep PublicDnsName
 "PublicDnsName": "ec2-18-118-218-53.us-east-2.compute.amazonaws.com"
 
-# Open port for message forwarder to talk to cloud instance
+## Open port for message forwarder to talk to cloud instance
 aws ec2 authorize-security-group-ingress --group-id sg-04e2d5bf908108505 --protocol tcp --port 32000 --cidr 0.0.0.0/0
+
+## Create s3 bucket for images
+aws s3api create-bucket --bucket hw3-faces --region us-east-2 --create-bucket-configuration LocationConstraint=us-east-2
+
+## Connect to the AWS instance
+ssh -A ubuntu@ec2-18-118-218-53.us-east-2.compute.amazonaws.com.amazonaws.com
 
 # Run on the host
 ## Install Docker
@@ -57,4 +63,3 @@ kubectl apply -f mosquitto-service.yaml
 cd ~/mids-251/hw3/image-processor/
 kubectl apply -f image-processor.yaml
 
-image-processor-665468fff8-7kzvq
