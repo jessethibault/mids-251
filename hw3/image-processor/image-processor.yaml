@@ -15,3 +15,10 @@ spec:
       containers:
       - name: image-processor
         image: jethibau/hw3-image-processor
+        volumeMounts:
+          - name: creds
+            mountPath: /.aws
+      volumes:
+        - name: creds
+          hostPath:
+            path: ~/.aws
