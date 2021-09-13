@@ -23,8 +23,6 @@ while(True):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for (x,y,w,h) in faces:
-        # your logic goes here; for instance
-        # cut out face from the frame.. 
         face = gray[y:y+h, x:x+w]
         rc,png = cv2.imencode('.png', face)
         msg = png.tobytes()
