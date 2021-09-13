@@ -40,7 +40,21 @@ cat id_ed25519.pub
 # Add the public key to GitHub as a new SSH key
 git clone git@github.com:jessethibault/mids-251.git
 
+## Build the linux/amd64 broker image
+sudo docker build -t cloud-broker --platform linux/amd64 --no-cache .
+sudo docker tag cloud-broker jethibau/hw3-cloud-broker
+sudo docker push jethibau/hw3-cloud-broker
 
+## Build the linux/amd64 image processor image
+sudo docker build -t image-processor --platform linux/amd64 --no-cache .
+sudo docker tag image-processor jethibau/hw3-image-processor
+sudo docker push jethibau/hw3-image-processor
 
+## Run the containers in Kubernetes
+cd ~/mids-251/hw3/cloud-broker/
+kubectl apply -f cloud-broker.yaml
+kubectl apply -f mosquitto-service.yaml
+cd ~/mids-251/hw3/image-processor/
+kubectl apply -f image-processor.yaml
 
-67.183.134.8
+image-processor-665468fff8-7kzvq
