@@ -6,7 +6,7 @@ LOCAL_MQTT_PORT=1883
 LOCAL_MQTT_TOPIC="image_capture"
 
 REMOTE_MQTT_HOST="18.118.218.53"
-REMOTE_MQTT_PORT=31801
+REMOTE_MQTT_PORT=32000
 REMOTE_MQTT_TOPIC="image_store"
 
 def on_connect_local(client, userdata, flags, rc):
