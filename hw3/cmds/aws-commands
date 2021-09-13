@@ -1,20 +1,20 @@
-# Security groups were setup from Lab 02
+# Run on local machine
+## Security groups were setup from Lab 02
 aws ec2 describe-security-groups | grep -A20 PrivateSG | grep GroupId
 sg-04e2d5bf908108505
 
-# Get ubuntu image name
+## Get ubuntu image name
 aws ec2 describe-images  --filters  Name=name,Values='ubuntu/images/hvm-ssd/ubuntu-bionic-18.04*' Name=architecture,Values=x86_64   | head -100
 ami-0010d386b82bc06f0
 
-# Create instance for image processor
+## Create instance for image processor
 aws ec2 run-instances --image-id ami-0010d386b82bc06f0 --instance-type t2.medium --security-group-ids sg-04e2d5bf908108505 --associate-public-ip-address --key-name hw3-image-processor
 
-# Find public DNS name
+## Find public DNS name
 aws ec2 describe-instances | grep PublicDnsName
 "PublicDnsName": "ec2-18-118-218-53.us-east-2.compute.amazonaws.com"
 
 # Run on the host
-
 ## Install Docker
 sudo apt-get update
 sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
