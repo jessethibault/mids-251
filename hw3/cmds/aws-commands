@@ -14,6 +14,9 @@ aws ec2 run-instances --image-id ami-0010d386b82bc06f0 --instance-type t2.medium
 aws ec2 describe-instances | grep PublicDnsName
 "PublicDnsName": "ec2-18-118-218-53.us-east-2.compute.amazonaws.com"
 
+# Open port for message forwarder to talk to cloud instance
+aws ec2 authorize-security-group-ingress --group-id sg-04e2d5bf908108505 --protocol tcp --port 32000 --cidr 0.0.0.0/0
+
 # Run on the host
 ## Install Docker
 sudo apt-get update
@@ -36,3 +39,8 @@ ssh-add ~/.ssh/id_ed25519
 cat id_ed25519.pub
 # Add the public key to GitHub as a new SSH key
 git clone git@github.com:jessethibault/mids-251.git
+
+
+
+
+67.183.134.8

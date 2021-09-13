@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: mosquitto
-        image: jethibau/hw3-cloud-broker
+        image: jethibau/hw3-edge-broker
         ports:
         - containerPort: 1883
