@@ -1,3 +1,5 @@
+# Kubernetes is already installed on Jetson as per Lab 03
+
 # Run on local machine
 ## Run each docker image in Kubernetes
 cd ~/w251-mids/hw3/edge-broker
@@ -29,7 +31,7 @@ aws ec2 describe-instances | grep PublicDnsName
 aws ec2 authorize-security-group-ingress --group-id sg-04e2d5bf908108505 --protocol tcp --port 32000 --cidr 0.0.0.0/0
 
 ## Create s3 bucket for images
-aws s3api create-bucket --bucket hw3-faces --region us-east-2 --create-bucket-configuration LocationConstraint=us-east-2
+aws s3api create-bucket --acl public-read --bucket hw3-faces --region us-east-2 --create-bucket-configuration LocationConstraint=us-east-2
 
 ## Connect to the AWS instance
 ssh -A ubuntu@ec2-18-118-218-53.us-east-2.compute.amazonaws.com.amazonaws.com
@@ -74,3 +76,5 @@ kubectl apply -f mosquitto-service.yaml
 cd ~/mids-251/hw3/image-processor/
 kubectl apply -f image-processor.yaml
 
+## Get image-processor pod name 
+kubectl get pods -l app=image-processor
