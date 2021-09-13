@@ -21,13 +21,16 @@ def write_to_file(payload):
 
 # Write payload to S3 using boto3
 def write_to_s3(payload):
+  print('write_to_s3 start')
   resp = boto_client.put_object(ACL='public-read', Body=payload, Bucket='hw3-faces', Key=f"{round(time.time() * 1000000)}.png")
   if resp['ResponseMetadata']['HTTPStatusCode'] != 200:
     print(f"Error pushing file: {resp}")
+  print('write_to_s3 end')
 
 # Run whenever a new message arrives -- a new image
 def on_message(client,userdata, msg):
   try:
+    print('on_message start')
     write_to_s3(msg.payload)
   except:
     print(f"Unexpected error: {sys.exc_info()[0]} -- {sys.exc_info()[1]} -- {sys.exc_info()[2]}")
