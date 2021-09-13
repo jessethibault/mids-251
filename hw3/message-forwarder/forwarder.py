@@ -10,18 +10,18 @@ REMOTE_MQTT_PORT=1883
 REMOTE_MQTT_TOPIC="image_store"
 
 def on_connect_local(client, userdata, flags, rc):
-        print("connected to local broker with rc: " + str(rc))
+        print(f"connected to local broker with rc: {rc}")
         client.subscribe(LOCAL_MQTT_TOPIC)
 	
 def on_connect_remote(client, userdata, flags, rc):
-        print("connected to remote broker with rc: " + str(rc))
+        print(f"connected to remote broker with rc: {rc}")
 
 def on_message(client,userdata, msg):
   try:
     msg = msg.payload
     local_mqttclient.publish(REMOTE_MQTT_TOPIC, payload=msg, qos=0, retain=False)
   except:
-    print("Unexpected error:", sys.exc_info()[0])
+    print(f"Unexpected error:{sys.exc_info()[0]}")
 
 local_mqttclient = mqtt.Client()
 local_mqttclient.on_connect = on_connect_local

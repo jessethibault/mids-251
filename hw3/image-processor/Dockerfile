@@ -10,5 +10,5 @@ RUN pip3 install --no-cache --upgrade pip
 #RUN a command to intall the MQTT python client
 RUN pip3 install paho-mqtt
 # Copy your listener.py file into the container
-COPY forwarder.py ./
-CMD python3 forwarder.py
+COPY image_processor.py ./
+CMD python3 image_processor.py
