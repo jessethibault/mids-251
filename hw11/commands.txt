@@ -1,0 +1,58 @@
+jesse@jesse-desktop:~/mids-251/hw11$ sudo usermod -aG docker $USER
+[sudo] password for jesse: 
+jesse@jesse-desktop:~/mids-251/hw11$ docker build -t hw11 -f Dockerfile.4.4
+"docker build" requires exactly 1 argument.
+See 'docker build --help'.
+
+Usage:  docker build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+jesse@jesse-desktop:~/mids-251/hw11$ docker build -t hw11 -f Dockerfile.4.4 .
+Sending build context to Docker daemon  26.62kB
+Step 1/13 : ARG BASE_IMAGE=nvcr.io/nvidia/l4t-ml:r32.6.1-py3
+Step 2/13 : FROM ${BASE_IMAGE}
+ ---> 4818848f7fee
+Step 3/13 : RUN apt update && apt install -y swig ffmpeg
+ ---> Using cache
+ ---> aee9e76ca2a8
+Step 4/13 : WORKDIR /tmp
+ ---> Using cache
+ ---> 8f4f35b47ce6
+Step 5/13 : RUN git clone https://github.com/pybox2d/pybox2d
+ ---> Using cache
+ ---> 9f4e60e21cbd
+Step 6/13 : WORKDIR /tmp/pybox2d
+ ---> Using cache
+ ---> 1ad61b135658
+Step 7/13 : RUN python3 setup.py build
+ ---> Using cache
+ ---> fe26175648b7
+Step 8/13 : RUN python3 setup.py install
+ ---> Using cache
+ ---> 0bf8bed4cd17
+Step 9/13 : RUN pip3 install scikit-video keras==2.4.1
+ ---> Using cache
+ ---> 5ee4fa2ff9a2
+Step 10/13 : RUN pip3 install gym pyglet
+ ---> Using cache
+ ---> 147efd46f284
+Step 11/13 : RUN mkdir /tmp/videos
+ ---> Using cache
+ ---> c480085d1b90
+Step 12/13 : COPY agent_lunar_lander.py .
+ ---> Using cache
+ ---> 3f5474f755f3
+Step 13/13 : CMD ["python3", "agent_lunar_lander.py"]
+ ---> Using cache
+ ---> 13e0c76cd5d8
+Successfully built 13e0c76cd5d8
+Successfully tagged hw11:latest
+jesse@jesse-desktop:~/mids-251/hw11$ xhost +
+access control disabled, clients can connect from any host
+jesse@jesse-desktop:~/mids-251/hw11$ time docker run -it --rm --net=host --runtime nvidia -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix:rw --privileged -v /data/videos:/tmp/videos hw11
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:380: starting container process caused: process_linux.go:545: container init caused: Running hook #0:: error running hook: exit status 1, stdout: , stderr: nvidia-container-cli: initialization error: driver error: failed to process request: unknown.
+
+real	0m0.756s
+user	0m0.084s
+sys	0m0.028s
+jesse@jesse-desktop:~/mids-251/hw11$ 
