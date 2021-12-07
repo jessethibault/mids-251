@@ -3,6 +3,7 @@ import sys
 import time
 import os
 import numpy as np
+import csv
 import keras
 from keras.preprocessing import image
 
@@ -15,6 +16,10 @@ LOCAL_MQTT_PORT=1883
 LOCAL_MQTT_TOPIC="image_store"
 
 files = list()
+
+with open('labels.csv', newline='') as f:
+  reader = csv.reader(f)
+  labels = list(reader)
 
 # Run when connected to local MQTT broker
 def on_connect_local(client, userdata, flags, rc):
@@ -44,7 +49,7 @@ def make_prediction():
  
   files.clear()
 
-  print(most_common)
+  print(labels[np.bincount(most_common).argmax()])
 
 # Run whenever a new message arrives -- a new image
 def on_message(client,userdata, msg):
