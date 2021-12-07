@@ -15,12 +15,5 @@ spec:
       containers:
       - name: piece-identifier
         image: localhost:5000/piece-identifier
-        volumeMounts:
-        - mountPath: /final/images
-          name: image-repo
         securityContext:
           privileged: true
-      volumes:
-      - name: image-repo
-        hostPath:
-          path: /final/images
