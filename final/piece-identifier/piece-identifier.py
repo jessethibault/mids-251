@@ -37,7 +37,7 @@ def write_to_file(payload):
 def make_prediction():
   image_dataset = image.image_dataset_from_directory('./data')
 
-  most_common = np.argmax(model.predict(image_dataset, axis=-1))
+  most_common = np.argmax(model.predict(image_dataset), axis=-1)
 
   for file in files:
     os.remove(file)
