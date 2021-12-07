@@ -1,5 +1,22 @@
+import paho.mqtt.client as mqtt
 import cv2
 import time
+
+# Static data defining local host
+LOCAL_MQTT_HOST="mosquitto-service"
+LOCAL_MQTT_PORT=1883
+LOCAL_MQTT_TOPIC="image_capture"
+
+# Build up local MQTT client
+def on_connect_local(client, userdata, flags, rc):
+        print(f"connected to local broker with rc: {rc}")
+
+# Run when connected to local MQTT broker
+local_mqttclient = mqtt.Client()
+local_mqttclient.on_connect = on_connect_local
+local_mqttclient.connect(LOCAL_MQTT_HOST, LOCAL_MQTT_PORT, 60)
+
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 # Initiate video capture
 cap = cv2.VideoCapture(0)
@@ -12,8 +29,9 @@ while(True):
     dim = (128, 128)
     resized = cv2.resize(frame, dim)
 
-    # Save image to disc for identifier
-    cv2.imwrite(f'/final/images/{round(time.time() * 1000000)}.jpg', resized)
+    # Encode and send
+    rc,jpg = cv2.imencode('.jpg', resized)
+    msg = jpg.tobytes()
+    local_mqttclient.publish(LOCAL_MQTT_TOPIC, payload=msg, qos=0, retain=False)
 
-    # Only update every quarter second
     time.sleep(0.25)
