@@ -2,8 +2,12 @@ import paho.mqtt.client as mqtt
 import sys
 import time
 import os
+import numpy as np
 import keras
 from keras.preprocessing import image
+
+# Load trained model
+model = keras.models.load_model('./models')
 
 # Static data defining local host
 LOCAL_MQTT_HOST="mosquitto-service"
@@ -32,9 +36,8 @@ def write_to_file(payload):
 # Write payload to S3 using boto3
 def make_prediction():
   image_dataset = image.image_dataset_from_directory('./data')
-  predictions = model.predict_classes(image_dataset)
 
-  most_common = max(predictions, key = predictions.count)
+  most_common = np.argmax(model.predict(image_dataset, axis=-1))
 
   for file in files:
     os.remove(file)
@@ -51,8 +54,6 @@ def on_message(client,userdata, msg):
   except:
     print(f"Unexpected error: {sys.exc_info()[0]} -- {sys.exc_info()[1]} -- {sys.exc_info()[2]}")
 
-# Load trained model
-model = keras.models.load_model('./models')
 
 # Build up local MQTT client
 local_mqttclient = mqtt.Client()
