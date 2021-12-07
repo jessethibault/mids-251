@@ -14,7 +14,7 @@ def on_connect_local(client, userdata, flags, rc):
 
 # Keep for debugging purposes
 def write_to_file(payload):
-  f = open(f"{round(time.time() * 1000000)}.png", "wb")
+  f = open(f"{round(time.time() * 1000000)}.jpg", "wb")
   f.write(payload)
   f.close()
 
@@ -26,7 +26,7 @@ def make_prediction(payload):
 # Run whenever a new message arrives -- a new image
 def on_message(client,userdata, msg):
   try:
-    make_prediction(msg.payload)
+    write_to_file(msg.payload)
   except:
     print(f"Unexpected error: {sys.exc_info()[0]} -- {sys.exc_info()[1]} -- {sys.exc_info()[2]}")
 
