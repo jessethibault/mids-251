@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: piece-identifier
-        image: localhost:5000/piece-identifier
+        image: jethibau/piece-identifier
         securityContext:
           privileged: true
