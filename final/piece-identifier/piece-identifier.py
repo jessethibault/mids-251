@@ -19,7 +19,7 @@ files = list()
 
 with open('labels.csv', newline='') as f:
   reader = csv.reader(f)
-  labels = list(reader)
+  labels = list(reader)[0]
 
 # Run when connected to local MQTT broker
 def on_connect_local(client, userdata, flags, rc):
