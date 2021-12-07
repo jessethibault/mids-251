@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import sys
 import time
+import os
 import keras
 from keras.preprocessing import image
 
@@ -9,6 +10,8 @@ LOCAL_MQTT_HOST="mosquitto-service"
 LOCAL_MQTT_PORT=1883
 LOCAL_MQTT_TOPIC="image_store"
 
+files = list()
+
 # Run when connected to local MQTT broker
 def on_connect_local(client, userdata, flags, rc):
   print(f"connected to local broker with rc: {rc}")
@@ -16,14 +19,29 @@ def on_connect_local(client, userdata, flags, rc):
 
 # Keep for debugging purposes
 def write_to_file(payload):
-  f = open(f"{round(time.time() * 1000000)}.jpg", "wb")
+  file_name = f"{round(time.time() * 1000000)}.jpg"
+  files.append(file_name)
+
+  f = open(file_name, "wb")
   f.write(payload)
   f.close()
 
+  if len(files) >= 10:
+    make_prediction()
+
 # Write payload to S3 using boto3
-def make_prediction(payload):
-  # do model pred here
-  print('tbd')
+def make_prediction():
+  image_dataset = image.image_dataset_from_directory('./data')
+  predictions = model.predict_classes(image_dataset)
+
+  most_common = max(predictions, key = predictions.count)
+
+  for file in files:
+    os.remove(file)
+ 
+  files.clear()
+
+  print(most_common)
 
 # Run whenever a new message arrives -- a new image
 def on_message(client,userdata, msg):

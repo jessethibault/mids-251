@@ -9,6 +9,8 @@ RUN pip3 install Cython
 RUN pip3 install paho-mqtt
 RUN pip3 install tensorflow
 RUN pip3 install keras
+RUN mkdir data
+RUN mkdir data/images
 COPY piece-identifier.py piece-identifier.py
 ADD models/ models
 CMD python3 piece-identifier.py
