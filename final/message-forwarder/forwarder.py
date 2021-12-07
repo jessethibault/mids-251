@@ -7,7 +7,7 @@ LOCAL_MQTT_PORT=1883
 LOCAL_MQTT_TOPIC="image_capture"
 
 # Static data defining remote host
-REMOTE_MQTT_HOST="18.118.218.53"
+REMOTE_MQTT_HOST="10.43.221.154"
 REMOTE_MQTT_PORT=32000
 REMOTE_MQTT_TOPIC="image_store"
 

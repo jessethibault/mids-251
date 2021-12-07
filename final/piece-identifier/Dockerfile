@@ -10,5 +10,5 @@ RUN pip3 install paho-mqtt
 RUN pip3 install tensorflow
 RUN pip3 install keras
 COPY piece-identifier.py piece-identifier.py
-COPY /models/ /usr/models/
+ADD models/ /usr/models
 CMD python3 piece-identifier.py

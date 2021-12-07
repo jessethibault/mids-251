@@ -1,6 +1,8 @@
 import paho.mqtt.client as mqtt
 import sys
 import time
+import keras
+from keras.preprocessing import image
 
 # Static data defining local host
 LOCAL_MQTT_HOST="mosquitto-service"
