@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-forwarder
+spec:
+  selector:
+    matchLabels:
+      app: message-forwarder
+  replicas: 1 # tells deployment to run 1 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: message-forwarder
+    spec:
+      containers:
+      - name: message-forwarder
+        image: jethibau/hw3-message-forwarder
