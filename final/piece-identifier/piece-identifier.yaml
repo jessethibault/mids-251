@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: piece-identifier
+spec:
+  selector:
+    matchLabels:
+      app: piece-identifier
+  replicas: 1 # tells deployment to run 1 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: piece-identifier
+    spec:
+      containers:
+      - name: piece-identifier
+        image: jethibau/piece-identifier
+        volumeMounts:
+        - mountPath: /final/images
+          name: image-repo
+        securityContext:
+          privileged: true
+      volumes:
+      - name: image-repo
+        hostPath:
+          path: /final/images
