@@ -19,7 +19,7 @@ def on_connect_local(client, userdata, flags, rc):
 
 # Keep for debugging purposes
 def write_to_file(payload):
-  file_name = f"{round(time.time() * 1000000)}.jpg"
+  file_name = f"./data/images/{round(time.time() * 1000000)}.jpg"
   files.append(file_name)
 
   f = open(file_name, "wb")
