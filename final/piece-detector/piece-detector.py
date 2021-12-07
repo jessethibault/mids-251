@@ -32,4 +32,4 @@ while(True):
     msg = jpg.tobytes()
     local_mqttclient.publish(LOCAL_MQTT_TOPIC, payload=msg, qos=0, retain=False)
 
-    time.sleep(0.1)
+    time.sleep(0.5)
