@@ -28,6 +28,7 @@ def make_prediction(payload):
 # Run whenever a new message arrives -- a new image
 def on_message(client,userdata, msg):
   try:
+    print('Received image')
     write_to_file(msg.payload)
   except:
     print(f"Unexpected error: {sys.exc_info()[0]} -- {sys.exc_info()[1]} -- {sys.exc_info()[2]}")

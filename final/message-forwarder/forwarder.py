@@ -23,6 +23,7 @@ def on_connect_remote(client, userdata, flags, rc):
 # Run whenever a new message arrives -- a new image
 def on_message(client,userdata, msg):
   try:
+    print('Message received')
     msg = msg.payload
     remote_mqttclient.publish(REMOTE_MQTT_TOPIC, payload=msg, qos=0, retain=False)
   except:

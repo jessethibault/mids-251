@@ -16,8 +16,6 @@ local_mqttclient = mqtt.Client()
 local_mqttclient.on_connect = on_connect_local
 local_mqttclient.connect(LOCAL_MQTT_HOST, LOCAL_MQTT_PORT, 60)
 
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-
 # Initiate video capture
 cap = cv2.VideoCapture(0)
 
