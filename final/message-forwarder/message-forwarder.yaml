@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: message-forwarder
-        image: jethibau/hw3-message-forwarder
+        image: jethibau/final-message-forwarder
