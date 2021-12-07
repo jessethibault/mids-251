@@ -32,6 +32,9 @@ def on_message(client,userdata, msg):
   except:
     print(f"Unexpected error: {sys.exc_info()[0]} -- {sys.exc_info()[1]} -- {sys.exc_info()[2]}")
 
+# Load trained model
+model = keras.models.load_model('./models')
+
 # Build up local MQTT client
 local_mqttclient = mqtt.Client()
 local_mqttclient.on_connect = on_connect_local
